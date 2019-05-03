@@ -10,7 +10,7 @@
 #include "Pipe.h"
 #include "RelOp.h"
 
-#define PIPE_SIZE 256
+#define PIPE_SIZE 100
 
 // #define _OUTPUT_SCHEMA__
 
