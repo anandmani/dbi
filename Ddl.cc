@@ -34,7 +34,7 @@ extern char* tpch_dir;
 bool Ddl::createTable() { // CREATE TABLE
   if (exists(newtable)) return false;
   std::ofstream ofmeta ((std::string(newtable)+".meta").c_str());
-  fType t = (sortattrs ? SORTED : HEAP);
+  fType t = (sortattrs ? sorted : heap);
   ofmeta << t << endl;   // 1 Filetype
 
   // 2 Schema

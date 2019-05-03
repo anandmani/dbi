@@ -7,17 +7,11 @@ ifdef linux
 tag = -n
 endif
 
-main: Ddl.o Interpreter.o Record.o Comparison.o ComparisonEngine.o Schema.o File.o DBFile.o QueryPlan.o Statistics.o Function.o BigQ.o Pipe.o HeapFile.o SortedFile.o y.tab.o lex.yy.o main.o
-	$(CC) -o main Ddl.o Interpreter.o Record.o Comparison.o ComparisonEngine.o Schema.o File.o DBFile.o QueryPlan.o Statistics.o Function.o BigQ.o Pipe.o HeapFile.o SortedFile.o y.tab.o lex.yy.o main.o -ll -lpthread
-
-test.out: QueryPlan.o Statistics.o Record.o Comparison.o ComparisonEngine.o Schema.o File.o Pipe.o BigQ.o RelOp.o Function.o DBFile.o HeapFile.o SortedFile.o y.tab.o yyfunc.tab.o lex.yy.o lex.yyfunc.o test.o
-	$(CC) -o test.out QueryPlan.o Statistics.o Record.o Comparison.o ComparisonEngine.o Schema.o File.o DBFile.o Pipe.o HeapFile.o SortedFile.o BigQ.o RelOp.o Function.o y.tab.o yyfunc.tab.o lex.yy.o lex.yyfunc.o test.o -ll -lpthread
+test.out: Ddl.o Interpreter.o QueryPlan.o Statistics.o Record.o Comparison.o ComparisonEngine.o Schema.o File.o Pipe.o BigQ.o RelOp.o Function.o DBFile.o HeapFile.o SortedFile.o y.tab.o yyfunc.tab.o lex.yy.o lex.yyfunc.o test.o
+	$(CC) -o test.out Ddl.o Interpreter.o QueryPlan.o Statistics.o Record.o Comparison.o ComparisonEngine.o Schema.o File.o DBFile.o Pipe.o HeapFile.o SortedFile.o BigQ.o RelOp.o Function.o y.tab.o yyfunc.tab.o lex.yy.o lex.yyfunc.o test.o -ll -lpthread
 
 gtest.out: Record.o Comparison.o ComparisonEngine.o Schema.o File.o DBFile.o Statistics.o y.tab.o lex.yy.o gtest.cc
 	g++ -std=c++11 -isystem googletest/include -pthread gtest.cc libgtest.a -o gtest.out Record.o Comparison.o ComparisonEngine.o Schema.o File.o DBFile.o Statistics.o y.tab.o lex.yy.o -ll
-	
-main.o : main.cc
-	$(CC) -g -c main.cc
 	
 test.o: test.cc
 	$(CC) -g -c test.cc
@@ -54,9 +48,6 @@ BigQ.o: BigQ.cc
 
 RelOp.o: RelOp.cc
 	$(CC) -g -c RelOp.cc
-
-Function.o: Function.cc
-	$(CC) -g -c Function.cc
 
 File.o: File.cc
 	$(CC) -g -c File.cc

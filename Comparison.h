@@ -1,6 +1,8 @@
 #ifndef COMPARISON_H
 #define COMPARISON_H
 
+#include <iostream>
+
 #include "Record.h"
 #include "Schema.h"
 #include "File.h"
@@ -12,6 +14,7 @@
 class Comparison {
 
 	friend class ComparisonEngine;
+	friend class OrderMaker;
 	friend class CNF;
 
 	Target operand1;
@@ -36,6 +39,7 @@ public:
 
 
 class Schema;
+class CNF;
 
 // This structure encapsulates a sort order for records
 class OrderMaker {
@@ -70,6 +74,16 @@ public:
 	int* GetWhichAtts ();
 	Type* GetWhichTypes ();
 	void Set (int n, int* wA, Type* wT );
+
+
+  // read/write OrderMaker in text format
+  friend std::ostream& operator<<(std::ostream& os, const OrderMaker& myorder);
+  friend std::istream& operator>>(std::istream& is, OrderMaker& myorder);
+  
+  private:
+	// find an attribute in the given query.
+	// returns its index or -1 if not found.
+	static int findAttrIn(int att, const CNF& query);
 };
 
 class Record;
