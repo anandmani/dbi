@@ -269,6 +269,9 @@ off_t File :: GetLength () {
 	return curLength;
 }
 
+void File :: MoveFirst() {
+	lseek(myFilDes, 0, SEEK_SET);
+}
 
 int File :: Close () {
 

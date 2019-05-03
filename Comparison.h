@@ -63,6 +63,10 @@ public:
 
 	// print to the screen
 	void Print ();
+			int GetNumAtts ();
+	int* GetWhichAtts ();
+	Type* GetWhichTypes ();
+	void Set (int n, int* wA, Type* wT );
 };
 
 class Record;
@@ -88,6 +92,10 @@ public:
 	// for the given comparison
 	int GetSortOrders (OrderMaker &left, OrderMaker &right);
 
+	int GetOrder(OrderMaker &left, OrderMaker &right);
+
+	OrderMaker* CreateQueryMaker(OrderMaker& order);
+	
 	// print the comparison structure to the screen
 	void Print ();
 
