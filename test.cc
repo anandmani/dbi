@@ -1,35 +1,39 @@
-
 #include <iostream>
 #include "ParseTree.h"
-#include "Statistics.h"
+#include "QueryPlan.h"
 
 using namespace std;
 
-const char *dbfile_dir = ""; // dir where binary heap files should be stored
-const char *tpch_dir = "./"; // dir where dbgen tpch files (extension *.tbl) can be found
-const char *catalog_path = "catalog"; // full path of the catalog file
+char* catalog_path = "catalog";
+char* dbfile_dir = "";
+char* tpch_dir = "../DATA/1G";
 
 extern "C" {
-	int yyparse(void);   // defined in y.tab.c
+  int yyparse(void);   // defined in y.tab.c
 }
 
-int main() {
+extern struct FuncOperator *finalFunction; // the aggregate function (NULL if no agg)
+extern struct TableList *tables; // the list of tables and aliases in the query
+extern struct AndList *boolean; // the predicate in the WHERE clause
+extern struct NameList *groupingAtts; // grouping atts (NULL if no grouping)
+extern struct NameList *attsToSelect; // the set of attributes in the SELECT (NULL if no such atts)
+extern int distinctAtts; // 1 if there is a DISTINCT in a non-aggregate query 
+extern int distinctFunc;  // 1 if there is a DISTINCT in an aggregate query
 
-	cout << " Enter CNF predicate (when done press ctrl-D):\n\t";
+int main (int argc, char* argv[]) {
+  cout << " Enter CNF predicate (when done press ctrl-D):\n\t";
+  if (yyparse() != 0) {
+    std::cout << "Can't parse your CNF.\n";
+    exit (1);
+  }
 
-	if (yyparse() != 0) {
-		std::cout << "Can't parse your CNF.\n";
-		exit(1);
-	}
+  char *fileName = "Statistics.txt";
+  Statistics s;
+  s.Read(fileName);
 
-	char *fileName = "Statistics.txt";
-	Statistics s;
-
-	s.Read(fileName);
-
-
-	return 0;
-
+  QueryPlan plan(&s);
+  plan.print();
+  plan.setOutput(stdout);
+  plan.execute();
+  return 0;
 }
-
-

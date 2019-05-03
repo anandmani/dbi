@@ -223,9 +223,6 @@ void File :: AddPage (Page *addMe, off_t whichPage) {
 	lseek (myFilDes, PAGE_SIZE * whichPage, SEEK_SET);
 	write (myFilDes, bits, PAGE_SIZE);
 	delete [] bits;
-#ifdef F_DEBUG
-	cerr << " File: curLength " << curLength << " whichPage " << whichPage << endl;
-#endif
 }
 
 

@@ -97,7 +97,7 @@ public:
 	OrderMaker* CreateQueryMaker(OrderMaker& order);
 	
 	// print the comparison structure to the screen
-	void Print ();
+	void Print () ;
 
         // this takes a parse tree for a CNF and converts it into a 2-D
         // matrix storing the same CNF expression.  This function is applicable
