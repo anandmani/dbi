@@ -55,6 +55,9 @@ public:
 	// creates an empty OrdermMaker
 	OrderMaker();
 
+	OrderMaker(const OrderMaker& order);
+	OrderMaker& operator= (const OrderMaker& order);
+
 	// create an OrderMaker that can be used to sort records
 	// based upon ALL of their attributes
 	OrderMaker(Schema *schema);

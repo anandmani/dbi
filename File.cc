@@ -169,7 +169,10 @@ void File :: GetPage (Page *putItHere, off_t whichPage) {
 	whichPage++;
 	//subi// cerr << "get_pg " << whichPage << " file_sz " << curLength << endl;
 
-	if (whichPage >= curLength) {
+	if (curLength <= 0) { // return an empty page
+		putItHere -> EmptyItOut();
+		return;
+	} else if (whichPage >= curLength) {
 		cerr << "whichPage " << whichPage << " length " << curLength << endl;
 		cerr << "BAD: you tried to read past the end of the file\n";
 		exit (1);

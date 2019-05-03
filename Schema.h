@@ -44,6 +44,9 @@ public:
 	// returns a -1 if the attribute is not present in the schema
 	int Find (char *attName);
 
+	// deep copy
+    Schema (const Schema& sch);
+
 	// this finds the type of the given attribute
 	Type FindType (char *attName);
 
